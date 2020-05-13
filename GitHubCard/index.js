@@ -3,9 +3,6 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const url = 'https://api.github.com/users/dtebo';
-
-axios.get(url);
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -57,30 +54,71 @@ function createCard(data){
   card.classList.add('card');
 
   const img = document.createElement('img');
+  img.src = data.avatar_url;
+
+  card.appendChild(img);
 
   const cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
 
   const name = document.createElement('h3');
   name.classList.add('name');
+  name.textContent = data.name;
 
   const username = document.createElement('p');
   username.classList.add('username');
+  username.textContent = data.login;
 
   const location = document.createElement('p');
+  location.textContent = `Location: ${data.location}`;
 
   const profile = document.createElement('p');
+  profile.textContent = 'Profile: ';
 
   const profileLink = document.createElement('a');
+  profileLink.href = data.html_url;
+  profileLink.textContent = data.html_url;
+  profileLink.target = '_blank';
 
   const followers = document.createElement('p');
+  followers.textContent = `Followers: ${data.followers}`;
 
   const following = document.createElement('p');
+  following.textContent = `Following: ${data.following}`;
 
   const bio = document.createElement('p');
+  bio.textContent = data.bio;
+
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  
+  profile.appendChild(profileLink);
+
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  card.appendChild(cardInfo);
 
   return card;
 }
+
+/* Card Container */
+const cards = document.querySelector('.cards');
+
+/* Github Url */
+const url = 'https://api.github.com/users/dtebo';
+
+/* Send request for Github data */
+axios.get(url)
+     .then((data) => {
+        /* Response Received! Generate the Card */
+        let crd = createCard(data.data);
+
+        /* Append card to Card Container */
+        cards.appendChild(crd);
+     });
 
 /*
   List of LS Instructors Github username's:
