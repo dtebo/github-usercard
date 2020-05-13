@@ -3,6 +3,9 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const url = 'https://api.github.com/users/dtebo';
+
+axios.get(url);
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +52,35 @@ const followersArray = [];
       </div>
     </div>
 */
+function createCard(data){
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const img = document.createElement('img');
+
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+
+  const name = document.createElement('h3');
+  name.classList.add('name');
+
+  const username = document.createElement('p');
+  username.classList.add('username');
+
+  const location = document.createElement('p');
+
+  const profile = document.createElement('p');
+
+  const profileLink = document.createElement('a');
+
+  const followers = document.createElement('p');
+
+  const following = document.createElement('p');
+
+  const bio = document.createElement('p');
+
+  return card;
+}
 
 /*
   List of LS Instructors Github username's:
