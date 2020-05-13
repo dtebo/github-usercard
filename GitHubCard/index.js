@@ -28,7 +28,14 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'dtebo',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -108,17 +115,20 @@ function createCard(data){
 const cards = document.querySelector('.cards');
 
 /* Github Url */
-const url = 'https://api.github.com/users/dtebo';
+const base_url = 'https://api.github.com/users/';
 
-/* Send request for Github data */
-axios.get(url)
-     .then((data) => {
-        /* Response Received! Generate the Card */
-        let crd = createCard(data.data);
+// For each user
+followersArray.forEach((follower) => {
+  /* Send request for Github data */
+  axios.get(`${base_url}${follower}`)
+  .then((data) => {
+    /* Response Received! Generate the Card */
+    let crd = createCard(data.data);
 
-        /* Append card to Card Container */
-        cards.appendChild(crd);
-     });
+    /* Append card to Card Container */
+    cards.appendChild(crd);
+  });
+});
 
 /*
   List of LS Instructors Github username's:
