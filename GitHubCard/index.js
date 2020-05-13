@@ -118,16 +118,42 @@ const cards = document.querySelector('.cards');
 const base_url = 'https://api.github.com/users/';
 
 // For each user
-followersArray.forEach((follower) => {
-  /* Send request for Github data */
-  axios.get(`${base_url}${follower}`)
-  .then((data) => {
-    /* Response Received! Generate the Card */
-    let crd = createCard(data.data);
+// followersArray.forEach((follower) => {
+//   /* Send request for Github data */
+//   axios.get(`${base_url}${follower}`)
+//   .then((data) => {
+//     /* Response Received! Generate the Card */
+//     let crd = createCard(data.data);
 
-    /* Append card to Card Container */
-    cards.appendChild(crd);
-  });
+//     /* Append card to Card Container */
+//     cards.appendChild(crd);
+//   });
+// });
+
+function getFollowers(user){
+  /* Get the user's followers */
+  axios.get(`${base_url}${user}/followers`)
+       .then((result) => {
+         result.data.forEach((i) => {
+           cards.appendChild(createCard(i));
+         });
+       });
+}
+
+/* Stretch Goal 1 */
+/* Send request for Github data */
+axios.get(`${base_url}dtebo`)
+.then((data) => {
+  /* Response Received! Generate the Card */
+  let crd = createCard(data.data);
+
+  /* Append card to Card Container */
+  cards.appendChild(crd);
+
+  return data.data.login;
+})
+.then((d) => {
+  getFollowers(d);
 });
 
 /*
