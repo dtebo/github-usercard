@@ -129,6 +129,22 @@ body {
 
 .card .detail-container{
   display: none;
+  font-size: 1.5em;
   margin-top: 20px;
+  transition: all .2s ease-in;
 }
 
+.card:first-child .expand-collapse{
+  cursor: pointer;
+  display: block;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.detail-open{
+  height: 620px;
+}
+
+.detail-open .detail-container{
+  display: block;
+}

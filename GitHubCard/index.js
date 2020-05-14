@@ -99,9 +99,6 @@ function createCard(data){
   const bio = document.createElement('p');
   bio.textContent = data.bio;
 
-  const expandCollapse = document.createElement('span');
-  expandCollapse.classList.add('expand-collapse');
-  
   cardInfo.appendChild(name);
   cardInfo.appendChild(username);
   
@@ -120,12 +117,14 @@ function createCard(data){
 }
 
 function createDetailCard(data){
+  /* Detail Container */
   const detail = document.createElement('div');
   detail.classList.add('detail-container');
 
   const repoInfo = document.createElement('div');
   repoInfo.classList.add('repo-info');
 
+  /* Get the list of Repos */
   const list = createRepoList(data);
 
   repoInfo.appendChild(list);
@@ -141,7 +140,9 @@ function createRepoList(data){
 
   const repoList = document.createElement('ul');
 
+  /* For each repo item */
   data.data.forEach((repo) => {
+    /* Add it's data to the list */
     let repoItem = document.createElement('li');
     repoItem.textContent = repo.name;
 
@@ -185,11 +186,25 @@ function getFollowers(user){
 function getRepos(data){
   axios.get(data.repos_url)
        .then((resp) => {
-        const c = document.querySelector('.card'); /* Get the first card - primary user */
+        const target = document.querySelector('.card'); /* Get the first card - primary user */
 
+        /* Generate the Detail Card */
         const det = createDetailCard(resp);
 
-        c.appendChild(det);
+        /* Expand Collapse Button */
+        const expandCollapse = document.createElement('span');
+        expandCollapse.classList.add('expand-collapse');
+        expandCollapse.textContent = 'More Detail';
+
+        expandCollapse.addEventListener('click', (e) => {
+          target.classList.toggle('detail-open');
+
+          expandCollapse.textContent = (expandCollapse.textContent === 'More Detail') ? 'Less Detail' : 'More Detail';
+        });
+
+        target.appendChild(expandCollapse);
+        
+        target.appendChild(det);
        });
 }
 
