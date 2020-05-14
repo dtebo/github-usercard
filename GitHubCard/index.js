@@ -160,6 +160,9 @@ const cards = document.querySelector('.cards');
 /* Github Url */
 const base_url = 'https://api.github.com/users/';
 
+/* Github Chart API Url - Thank you 2016rshah! - https://github.com/2016rshah/githubchart-api */
+const chart_base_url = 'https://ghchart.rshah.org/409ba5/';
+
 // For each user
 // followersArray.forEach((follower) => {
 //   /* Send request for Github data */
@@ -203,6 +206,18 @@ function getRepos(data){
         });
 
         target.appendChild(expandCollapse);
+
+        /* Append user's Contribution Chart */
+        const chartTitle = document.createElement('h3');
+        chartTitle.textContent = 'Github Contributions';
+
+        target.appendChild(chartTitle);
+        
+        const chart = document.createElement('img');
+        chart.alt = 'Github Contribution Chart';
+        chart.src = `${chart_base_url}${data.login}`;
+
+        target.appendChild(chart);
         
         target.appendChild(det);
        });
@@ -217,6 +232,8 @@ axios.get(`${base_url}dtebo`)
 
   /* Append card to Card Container */
   cards.appendChild(crd);
+
+  // cards.appendChild(chart);
 
   return data.data;
 })
