@@ -116,7 +116,7 @@ function createCard(data){
   return card;
 }
 
-function createDetailCard(data){
+function createDetailCard(data, repo_count){
   /* Detail Container */
   const detail = document.createElement('div');
   detail.classList.add('detail-container');
@@ -126,10 +126,10 @@ function createDetailCard(data){
 
   const repoTitle = document.createElement('h3');
   repoTitle.classList.add('repo-title');
-  repoTitle.textContent = 'My Repositories';
+  repoTitle.textContent = `My Repositories (${repo_count})`;
 
   repoInfo.appendChild(repoTitle);
-  
+
   /* Get the list of Repos */
   const list = createRepoList(data);
 
@@ -144,18 +144,36 @@ function createRepoList(data){
   const publicRepos = document.createElement('div');
   publicRepos.classList.add('repos');
 
+  // Left List
   const repoList = document.createElement('ul');
 
+  // Right List
+  let rightList = document.createElement('ul');
+
   /* For each repo item */
-  data.data.forEach((repo) => {
+  data.data.forEach((repo, index) => {
     /* Add it's data to the list */
     let repoItem = document.createElement('li');
-    repoItem.textContent = repo.name;
 
-    repoList.appendChild(repoItem);
+    let repoLink = document.createElement('a');
+    repoLink.href = repo.html_url;
+    repoLink.target = '_blank';
+    repoLink.textContent = repo.name;
+
+    repoItem.appendChild(repoLink);
+
+    // If 15 items have been added to the list
+    if(index >= 14){
+      rightList.appendChild(repoItem);
+    }
+    else{
+      // Append the item to the first list
+      repoList.appendChild(repoItem); 
+    }
   });
 
   publicRepos.appendChild(repoList);
+  publicRepos.appendChild(rightList);
 
   return publicRepos;
 }
@@ -198,7 +216,7 @@ function getRepos(data){
         const target = document.querySelector('.card'); /* Get the first card - primary user */
 
         /* Generate the Detail Card */
-        const det = createDetailCard(resp);
+        const det = createDetailCard(resp, data.public_repos);
 
         /* Expand Collapse Button */
         const expandCollapse = document.createElement('span');

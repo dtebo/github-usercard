@@ -163,3 +163,16 @@ body {
 .detail-open .contrib-chart{
   display: block;
 }
+
+.repos{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.repos ul li {
+  margin-bottom: 10px;
+}
+
+.repos li a{
+  text-decoration: none;
+}
