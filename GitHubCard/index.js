@@ -60,10 +60,13 @@ function createCard(data){
   const card = document.createElement('div');
   card.classList.add('card');
 
+  const cardWrapper = document.createElement('div');
+  cardWrapper.classList.add('card-wrapper');
+
   const img = document.createElement('img');
   img.src = data.avatar_url;
 
-  card.appendChild(img);
+  cardWrapper.appendChild(img);
 
   const cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
@@ -106,9 +109,45 @@ function createCard(data){
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
-  card.appendChild(cardInfo);
+  cardWrapper.appendChild(cardInfo);
 
+  card.appendChild(cardWrapper);
+  
   return card;
+}
+
+function createDetailCard(data){
+  const detail = document.createElement('div');
+  detail.classList.add('detail-container');
+
+  const repoInfo = document.createElement('div');
+  repoInfo.classList.add('repo-info');
+
+  const list = createRepoList(data);
+
+  repoInfo.appendChild(list);
+
+  detail.appendChild(repoInfo);
+
+  return detail;
+}
+
+function createRepoList(data){
+  const publicRepos = document.createElement('div');
+  publicRepos.classList.add('repos');
+
+  const repoList = document.createElement('ul');
+
+  data.data.forEach((repo) => {
+    let repoItem = document.createElement('li');
+    repoItem.textContent = repo.name;
+
+    repoList.appendChild(repoItem);
+  });
+
+  publicRepos.appendChild(repoList);
+
+  return publicRepos;
 }
 
 /* Card Container */
@@ -140,6 +179,19 @@ function getFollowers(user){
        });
 }
 
+function getRepos(data){
+  axios.get(data.repos_url)
+       .then((resp) => {
+        console.log(resp);
+        
+        const c = document.querySelector('.card'); /* Get the first card - primary user */
+
+        const det = createDetailCard(resp);
+
+        c.appendChild(det);
+       });
+}
+
 /* Stretch Goal 1 */
 /* Send request for Github data */
 axios.get(`${base_url}dtebo`)
@@ -150,10 +202,16 @@ axios.get(`${base_url}dtebo`)
   /* Append card to Card Container */
   cards.appendChild(crd);
 
-  return data.data.login;
+  return data.data;
 })
 .then((d) => {
-  getFollowers(d);
+  getFollowers(d.login);
+
+  return d;
+})
+.then((data) => {
+  /* Stretch Goal 2 */
+  getRepos(data);
 });
 
 /*

@@ -94,7 +94,6 @@ body {
 .card {
   width: 100%;
   padding: 20px;
-  display: flex;
   border-radius: 5px;
   box-shadow: 0 1px 6px -2px #000;
   background-color: #FFF;
@@ -123,5 +122,11 @@ body {
   margin: 3px 0 10px;
 }
 
+.card .card-wrapper{
+  display: flex;
+}
 
+.card .detail-container{
+  display: block;
+}
 
