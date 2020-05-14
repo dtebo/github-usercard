@@ -99,6 +99,9 @@ function createCard(data){
   const bio = document.createElement('p');
   bio.textContent = data.bio;
 
+  const expandCollapse = document.createElement('span');
+  expandCollapse.classList.add('expand-collapse');
+  
   cardInfo.appendChild(name);
   cardInfo.appendChild(username);
   
@@ -112,7 +115,7 @@ function createCard(data){
   cardWrapper.appendChild(cardInfo);
 
   card.appendChild(cardWrapper);
-  
+
   return card;
 }
 
@@ -182,8 +185,6 @@ function getFollowers(user){
 function getRepos(data){
   axios.get(data.repos_url)
        .then((resp) => {
-        console.log(resp);
-        
         const c = document.querySelector('.card'); /* Get the first card - primary user */
 
         const det = createDetailCard(resp);
