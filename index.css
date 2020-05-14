@@ -109,7 +109,7 @@ body {
 }
 
 .card .name {
-  font-size: 3.4rem;
+  font-size: 3rem;
 }
 
 .card p {
@@ -134,9 +134,16 @@ body {
   transition: all .2s ease-in;
 }
 
-.card img{
-  margin-top: 15px;
+.card .contrib-chart{
+  display: none;
   width: 100%;
+}
+
+.detail-container h3, .chart-title{
+  display: none;
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 15px 0;
 }
 
 .card:first-child .expand-collapse{
@@ -147,9 +154,12 @@ body {
 }
 
 .detail-open{
-  height: 780px;
+  height: 800px;
 }
 
-.detail-open .detail-container{
+.detail-open .detail-container, 
+.detail-open .chart-title,
+.detail-open .detail-container h3,
+.detail-open .contrib-chart{
   display: block;
 }

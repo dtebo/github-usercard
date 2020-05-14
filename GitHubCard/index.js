@@ -124,6 +124,12 @@ function createDetailCard(data){
   const repoInfo = document.createElement('div');
   repoInfo.classList.add('repo-info');
 
+  const repoTitle = document.createElement('h3');
+  repoTitle.classList.add('repo-title');
+  repoTitle.textContent = 'My Repositories';
+
+  repoInfo.appendChild(repoTitle);
+  
   /* Get the list of Repos */
   const list = createRepoList(data);
 
@@ -207,13 +213,16 @@ function getRepos(data){
 
         target.appendChild(expandCollapse);
 
+        /* Stretch Goal 3 */
         /* Append user's Contribution Chart */
         const chartTitle = document.createElement('h3');
+        chartTitle.classList.add('chart-title');
         chartTitle.textContent = 'Github Contributions';
 
         target.appendChild(chartTitle);
-        
+
         const chart = document.createElement('img');
+        chart.classList.add('contrib-chart');
         chart.alt = 'Github Contribution Chart';
         chart.src = `${chart_base_url}${data.login}`;
 
