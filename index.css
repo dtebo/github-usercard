@@ -93,15 +93,15 @@ body {
 
 .card {
   width: 100%;
+  height: 190px;
   padding: 20px;
-  display: flex;
   border-radius: 5px;
   box-shadow: 0 1px 6px -2px #000;
   background-color: #FFF;
   margin-bottom: 30px;
 }
 
-.card img {
+.card .card-wrapper img {
   width: 150px;
   height: 150px;
   border-radius: 3px;
@@ -109,7 +109,7 @@ body {
 }
 
 .card .name {
-  font-size: 3.4rem;
+  font-size: 3rem;
 }
 
 .card p {
@@ -123,5 +123,56 @@ body {
   margin: 3px 0 10px;
 }
 
+.card .card-wrapper{
+  display: flex;
+}
 
+.card .detail-container{
+  display: none;
+  font-size: 1.5em;
+  margin-top: 20px;
+  transition: all .2s ease-in;
+}
 
+.card .contrib-chart{
+  display: none;
+  width: 100%;
+}
+
+.detail-container h3, .chart-title{
+  display: none;
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 15px 0;
+}
+
+.card:first-child .expand-collapse{
+  cursor: pointer;
+  display: block;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.detail-open{
+  height: 800px;
+}
+
+.detail-open .detail-container, 
+.detail-open .chart-title,
+.detail-open .detail-container h3,
+.detail-open .contrib-chart{
+  display: block;
+}
+
+.repos{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.repos ul li {
+  margin-bottom: 10px;
+}
+
+.repos li a{
+  text-decoration: none;
+}
